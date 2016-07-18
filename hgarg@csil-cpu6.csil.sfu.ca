@@ -1,16 +1,9 @@
-/*
-Assignment 3 - Smaug Simulator 
-
-Submitted by: 
-	Gur Kohli (gkohli@sfu.ca) - 301215504
-	Himanshu Garg (hgarg@sfu.ca) - 301215259
-*/
-
 #include <errno.h> 
 #include <wait.h> 
 #include <stdlib.h> 
 #include <stdio.h>
 #include <unistd.h>
+//#include <curses.h>
 #include <time.h>
 #include <signal.h>
 #include <sys/types.h>
@@ -523,7 +516,10 @@ void initialize()
 	}
 	else {
 		printf("!!INIT!!INIT!!INIT!!  shm created for cowsEatenCounter\n");
-	} 
+	}
+
+	//Sheep 
+
 	if ((sheepCounter = shmget(IPC_PRIVATE, sizeof(int), IPC_CREAT | 0666)) < 0) {
 		printf("!!INIT!!INIT!!INIT!!  shm not created for sheepCounter\n");
 		exit(1);
@@ -545,6 +541,9 @@ void initialize()
 	else {
 		printf("!!INIT!!INIT!!INIT!!  shm created for sheepEatenCounter\n");
 	}
+
+	//Thief Hunter
+
 	if ((thiefCounter = shmget(IPC_PRIVATE, sizeof(int), IPC_CREAT | 0666)) < 0) {
 		printf("!!INIT!!INIT!!INIT!!  shm not created for thiefCounter\n");
 		exit(1);
@@ -591,6 +590,8 @@ void initialize()
 	else {
 		printf("!!INIT!!INIT!!INIT!!  shm attached for cowsEatenCounter\n");
 	}
+	//Sheep
+
 	if ((sheepCounterp = shmat(sheepCounter, NULL, 0)) == (int *) -1) {
 		printf("!!INIT!!INIT!!INIT!!  shm not attached for sheepCounter\n");
 		exit(1);
@@ -966,6 +967,9 @@ void releaseSemandMem()
 	else{
 		printf("RELEASERELEASERELEAS   cowsEatenCounter memory deleted\n");
 	}
+
+	//Sheep
+
 	if( shmdt(sheepCounterp)==-1)
 	{
 		printf("RELEASERELEASERELEAS   sheepCounterp memory detach failed\n");
